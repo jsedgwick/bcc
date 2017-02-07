@@ -66,9 +66,9 @@ public:
 
 class ProcSyms : SymbolCache {
   struct Symbol {
-    Symbol(const char *name, uint64_t start, uint64_t size, int flags = 0)
+    Symbol(const std::string *name, uint64_t start, uint64_t size, int flags = 0)
         : name(name), start(start), size(size), flags(flags) {}
-    std::string name;
+    const std::string *name;
     uint64_t start;
     uint64_t size;
     int flags;
@@ -84,6 +84,7 @@ class ProcSyms : SymbolCache {
     std::string name_;
     uint64_t start_;
     uint64_t end_;
+    std::unordered_set<std::string> symnames_;
     std::vector<Symbol> syms_;
 
     void load_sym_table();
