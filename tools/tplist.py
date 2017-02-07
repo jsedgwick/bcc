@@ -42,8 +42,6 @@ def print_tpoint_format(category, event):
                 parts = match.group(1).split()
                 field_name = parts[-1:][0]
                 field_type = " ".join(parts[:-1])
-                if "__data_loc" in field_type:
-                        continue
                 if field_name.startswith("common_"):
                         continue
                 print("    %s %s;" % (field_type, field_name))
@@ -68,7 +66,7 @@ def print_tracepoints():
 def print_usdt_argument_details(location):
         for idx in xrange(0, location.num_arguments):
                 arg = location.get_argument(idx)
-                print("    argument #%d %s" % (idx, arg))
+                print("    argument #%d %s" % (idx+1, arg))
 
 def print_usdt_details(probe):
         if args.verbosity > 0:
@@ -76,7 +74,7 @@ def print_usdt_details(probe):
                 if args.verbosity > 1:
                         for idx in xrange(0, probe.num_locations):
                                 loc = probe.get_location(idx)
-                                print("  location #%d %s" % (idx, loc))
+                                print("  location #%d %s" % (idx+1, loc))
                                 print_usdt_argument_details(loc)
                 else:
                         print("  %d location(s)" % probe.num_locations)
